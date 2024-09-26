@@ -1,0 +1,40 @@
+{
+  "name": "open-api-elements",
+  "version": "0.1.0",
+  "description": "OpenApi Web Components",
+  "main": "lib/index.js",
+  "module": "./lib/index.js",
+  "files": [
+    "lib/"
+  ],
+  "type": "module",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atlemagnussen/open-api-elements.git"
+  },
+  "keywords": [
+    "openapi",
+    "web",
+    "components",
+    "elements"
+  ],
+  "author": "atlemagnussen",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/atlemagnussen/open-api-elements/issues"
+  },
+  "homepage": "https://github.com/atlemagnussen/open-api-elements#readme",
+  "devDependencies": {
+    "openapi3-ts": "^4.4.0",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.8"
+  },
+  "dependencies": {
+    "@readyapi/openapi-parser": "^0.3.3",
+    "lit": "^3.2.0"
+  }
+}
