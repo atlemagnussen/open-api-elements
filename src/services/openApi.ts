@@ -1,11 +1,13 @@
-import * as oa from "@readyapi/openapi-parser"
-import { HttpClient } from "./httpClientNode.js"
+// import * as oa from "@readyapi/openapi-parser"
+import * as http from "./httpClientNode.js"
+import { OpenAPIObject } from "openapi3-ts/oas30"
 
-const http = new HttpClient()
 
 export async function readSpec(url: string) {
     const spec = await http.get(url)
-    const result = await oa.resolve(spec)
-    console.log(result.schema?.components)
+    // console.log("spec", spec)
+    const result = JSON.parse(spec) as OpenAPIObject
+    
+    console.log("resolve result", result.components)
 }
 

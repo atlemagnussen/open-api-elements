@@ -1,52 +1,51 @@
 import http from "http"
 import https from "https"
 
-export class HttpClient  {
 
-    async get(url: string) {
-        const options = await this.createRequestOptions("GET", url)
-        return this.request(options)
+export async function get(url: string) {
+    const options = await createRequestOptions("GET", url)
+    return request(options)
+}
+
+async function createRequestOptions(method: string, url: string) {
+    const urlObj = new URL(url)
+    console.log(urlObj)
+    const options: http.RequestOptions = {
+        method,
+        host: urlObj.host,
+        path: urlObj.pathname,
+        port: urlObj.port,
+        protocol: urlObj.protocol
     }
     
-    async createRequestOptions(method: string, url: string) {
-        const urlObj = new URL(url)
-        console.log(urlObj)
-        const options: http.RequestOptions = {
-            method,
-            host: urlObj.host,
-            path: urlObj.pathname,
-            port: urlObj.port,
-            protocol: urlObj.protocol
-        }
-        
-        options.headers = { "Content-Type": "application/json" }
-        return options
-    }
-    request(options: http.RequestOptions, data?: any): Promise<string> {
-        let postData = ""
-        if (data && typeof data === "object")
-            postData = JSON.stringify(data)
-        else if (data && typeof data === "string")
-            postData = data
-
-        if (postData)
-            options.headers!["Content-Length"] = Buffer.byteLength(postData)
-
-        let requestSend = https.request
-        if (options.protocol === "http:")
-            requestSend = http.request
-
-        return new Promise((resolve, reject) => {
-            const request = requestSend(options, (res) => {
-                handleResponse(res, resolve, reject)
-            })
-                .on("error", (e) => reject(e))
-            if (postData)
-                request.write(postData)
-            request.end()
-        })
-    }
+    options.headers = { "Content-Type": "application/json" }
+    return options
 }
+function request(options: http.RequestOptions, data?: any): Promise<string> {
+    let postData = ""
+    if (data && typeof data === "object")
+        postData = JSON.stringify(data)
+    else if (data && typeof data === "string")
+        postData = data
+
+    if (postData)
+        options.headers!["Content-Length"] = Buffer.byteLength(postData)
+
+    let requestSend = https.request
+    if (options.protocol === "http:")
+        requestSend = http.request
+
+    return new Promise((resolve, reject) => {
+        const request = requestSend(options, (res) => {
+            handleResponse(res, resolve, reject)
+        })
+            .on("error", (e) => reject(e))
+        if (postData)
+            request.write(postData)
+        request.end()
+    })
+}
+
 
 export function handleResponse(res: http.IncomingMessage, resolve: (data:any)=>void, reject:(msg:string | ProblemDetails)=>void) {
     let {statusCode} = res
