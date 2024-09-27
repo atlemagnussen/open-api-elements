@@ -3,11 +3,11 @@ import https from "https"
 
 
 export async function get(url: string) {
-    const options = await createRequestOptions("GET", url)
+    const options = createRequestOptions("GET", url)
     return request(options)
 }
 
-async function createRequestOptions(method: string, url: string) {
+function createRequestOptions(method: string, url: string) {
     const urlObj = new URL(url)
     console.log(urlObj)
     const options: http.RequestOptions = {

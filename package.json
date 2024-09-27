@@ -10,7 +10,8 @@
   "type": "module",
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "tsx ./src/test.ts"
+    "test": "tsx ./src/test.ts",
+    "start": "vite"
   },
   "repository": {
     "type": "git",

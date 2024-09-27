@@ -3,6 +3,7 @@
         "target": "ES2022",
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
+        "lib": ["DOM", "ES2023"],
         "forceConsistentCasingInFileNames": true,
         "strict": true,
         "outDir": "lib",
@@ -10,6 +11,7 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "experimentalDecorators": true,
+        "useDefineForClassFields": false,
         "baseUrl": ".",
         "paths": {
             "@lib/*": ["src/*"]
