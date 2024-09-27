@@ -10,7 +10,7 @@
   "type": "module",
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsx ./src/test.ts"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,11 @@
   },
   "homepage": "https://github.com/atlemagnussen/open-api-elements#readme",
   "devDependencies": {
+    "@types/node": "^22.7.3",
+    "i": "^0.3.7",
+    "npm": "^10.8.3",
     "openapi3-ts": "^4.4.0",
+    "tsx": "^4.19.1",
     "typescript": "^5.6.2",
     "vite": "^5.4.8"
   },
