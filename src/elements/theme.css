@@ -1,7 +1,21 @@
 :root {
+
+    --open-api-primary-background: rgb(194, 210, 241);
+    --open-api-primary-text: rgb(2, 5, 11);
+
+    --open-api-secondary-background: rgb(222, 229, 245);
+    --open-api-primary-text: rgb(3, 11, 28);
+
     --open-api-header-default: #AAA;
     --open-api-badge-default: #CCC;
     --open-api-green: #0F0;
 
     --open-api-get: var(--open-api-green);
+}
+.dark-theme {
+    --open-api-primary-background: rgb(20, 23, 29);
+    --open-api-primary-text: rgb(190, 208, 242);
+
+    --open-api-secondary-background: rgb(14, 15, 18);
+    --open-api-primary-text: rgb(222, 226, 233);
 }

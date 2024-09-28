@@ -9,7 +9,9 @@ import { OpenApiOperation } from "../models/openApiTypes.js"
 export class OpenApiOperationElement extends LitElement {
     static styles = css`
         :host {
-            display: inline-block;
+            display: block;
+            background: var(--open-api-secondary-background);
+            color: var(--open-api-secondary-color);
         }
     `
 

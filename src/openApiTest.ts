@@ -9,10 +9,43 @@ import "./elements/index.js"
 export class OpenApiTest extends LitElement {
     static styles = css`
         :host {
-            display: block;
+            background-color: var(--open-api-primary-background);
+            color: var(--open-api-primary-text);
+            display: grid;
+            grid-template-columns: 1fr 6fr;
+            grid-template-areas:
+            "nav header"
+            "nav content"
+            "nav content"
+            "nav content"
+            "nav content"
+            "nav content"
+            "nav content";
+            height: 100%;
+        }
+
+        nav {
+            grid-area: nav;
+            background: purple;
+            padding: 0.3rem;
+        }
+        header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            grid-area: header;
+            padding: 0.3rem;
+        }
+        main {
+            grid-area: content;
+            background: var(--open-api-secondary-background);
+            color: var(--open-api-secondary-color);
+            padding: 0.3rem;
         }
         input {
             width: 25rem;
+            background: var(--open-api-secondary-background);
+            color: var(--open-api-secondary-color);
         }
         section {
             background-color: #EEE;
@@ -38,7 +71,29 @@ export class OpenApiTest extends LitElement {
     @state()
     selectedOp?: OpenApiOperation | null
 
+    private _isDark = true
+    @state()
+    get isDark() {
+        return this._isDark
+    }
+    set isDark(value) {
+        this._isDark = value
+        if (this.isDark)
+            this.classList.add("dark-theme")
+        else
+            this.classList.remove("dark-theme")
+    }
+
+    isDarkChange(e: Event) {
+        const el = e.target as HTMLInputElement
+        this.isDark = el.checked
+    }
     baseUrl = ""
+
+    connectedCallback(): void {
+        super.connectedCallback()
+        this.isDark = true
+    }
 
     protected firstUpdated(_changedProperties: PropertyValues): void {
         this.getSpec()
@@ -72,22 +127,35 @@ export class OpenApiTest extends LitElement {
 
     render() {
         return html`
-            <p>Test</p>
-            <input id="url" value="https://apidev.digilean.tools/swagger/v1/swagger.json" />
-            <button @click=${this.getSpec}>Get spec</button>
-            <input id="op" value="Boards_List" />
-            <button @click=${this.getOp}>Get Op</button>
-            <button @click=${this.getTree}>Get Tree</button>
-            <div>${this.result}</div>
-            
-            <section>
-                <open-api-operation 
-                    .operation=${this.selectedOp}
-                    base-url="${this.baseUrl}">
-                </open-api-operation>
-            </section>
-
-            <textarea></textarea>
+            <header>
+                <div>
+                    <h2>OpenAPI Elements Test</h2>
+                </div>
+                <div>
+                    <label for="dark-mode">Dark mode</label>
+                    <input id="dark-mode" type="checkbox" 
+                        .checked=${this.isDark} 
+                        @change=${this.isDarkChange} />
+                </div>
+            </header>
+            <nav>
+                <span>menu</span>
+            </nav>
+            <main>
+                <input id="url" value="https://apidev.digilean.tools/swagger/v1/swagger.json" />
+                <button @click=${this.getSpec}>Get spec</button>
+                <input id="op" value="Boards_List" />
+                <button @click=${this.getOp}>Get Op</button>
+                <button @click=${this.getTree}>Get Tree</button>
+                <div>${this.result}</div>
+                
+                <section>
+                    <open-api-operation 
+                        .operation=${this.selectedOp}
+                        base-url="${this.baseUrl}">
+                    </open-api-operation>
+                </section>
+            </main>
         `
     }
 }
