@@ -3,30 +3,20 @@ export async function get<T = object>(url: string)  {
     return await http<T>(req)
 }
 
-
 function createRequest(url: string, method: string, contentType?: string, data?: any) {
-    // const urlObj = new URL(url)
-    // console.log(urlObj)
     const args: RequestInit = {
         method,
         headers: new Headers({"Content-Type": "application/json"})
     }
-    
     return new Request(url, args)
 }
 
 async function http<T>(request: RequestInfo): Promise<T> {
-    let errorFetchMsg
     const res = await fetch(request)
-    .catch((error) => {
-        errorFetchMsg = "Error fetching"
-        console.error(error.message)
-        throw new Error(errorFetchMsg)
-    })
     return resHandler(res)
 }
 
-const resHandler = async (res: Response) => {
+async function resHandler(res: Response) {
     let errorFetchMsg: string
     if (res.ok) {
         const contentType = res.headers.get("content-type")
@@ -60,7 +50,6 @@ const resHandler = async (res: Response) => {
             const message = await res.text()
             console.log(message)
         }
-        
         throw new Error(errorFetchMsg)
     }
 }

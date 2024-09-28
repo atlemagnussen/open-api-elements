@@ -1,4 +1,4 @@
-import {LitElement, html, css} from "lit"
+import {LitElement, html, css, PropertyValues} from "lit"
 import {customElement, query, state} from "lit/decorators.js"
 import * as openApi from "./services/openApi.js"
 
@@ -9,16 +9,29 @@ export class OpenApiTest extends LitElement {
             display: block;
         }
         input {
+            width: 25rem;
+        }
+        textarea {
             width: 40rem;
+            height: 40rem;
         }
     `
 
-    @query("input")
+    @query("input#url")
     inputEl: HTMLInputElement | undefined
+
+    @query("input#op")
+    inputOp: HTMLInputElement | undefined
+
+    @query("textarea")
+    textareaEl: HTMLTextAreaElement | undefined
 
     @state()
     result = ""
-    
+
+    protected firstUpdated(_changedProperties: PropertyValues): void {
+        this.getSpec()
+    }
     async getSpec() {
         const url = this.inputEl?.value
         if (!url) {
@@ -27,14 +40,29 @@ export class OpenApiTest extends LitElement {
         }
             
         const spec = await openApi.readSpec(url)
-        this.result = JSON.stringify(spec, null, 2)
+        const info = JSON.stringify(spec?.info)
+        this.result = `Spec ${spec?.openapi} loaded: ${info}`
+    }
+    getOp() {
+        const opId = this.inputOp?.value
+        if (!opId) {
+            this.result = "no op id"
+            return
+        }
+        const op = openApi.getNavigationTree()
+        const json = JSON.stringify(op, null, 2)
+        if (this.textareaEl)
+            this.textareaEl.value = json
     }
     render() {
         return html`
             <p>Test</p>
-            <input value="https://apidev.digilean.tools/swagger/v1/swagger.json" />
-            <button @click=${this.getSpec}>Get</button>
+            <input id="url" value="https://apidev.digilean.tools/swagger/v1/swagger.json" />
+            <button @click=${this.getSpec}>Get spec</button>
+            <input id="op" value="Boards_List" />
+            <button @click=${this.getOp}>Get Nav</button>
             <div>${this.result}</div>
+            <textarea></textarea>
         `
     }
 }
