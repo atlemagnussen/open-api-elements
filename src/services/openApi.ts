@@ -59,7 +59,7 @@ export function getNavigationTree() {
     return groups
 }
 
-export function findOperation(opId: string) {
+export function getOperation(opId: string) {
     if (!spec || !spec.paths)
         return null
 

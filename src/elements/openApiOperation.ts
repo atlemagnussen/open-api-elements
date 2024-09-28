@@ -1,11 +1,12 @@
 import {LitElement, html, css} from "lit"
 import {customElement, property, state} from "lit/decorators.js"
-import * as openApi from "../services/openApi"
+import { OpenApiOperation } from "../models/openApiTypes.js"
+// import * as openApi from "../services/openApi.js"
 import { oas30 } from "openapi3-ts"
-import "rapidoc"
+// import "rapidoc"
 
 @customElement('open-api-operation')
-export class OpenApiOperation extends LitElement {
+export class OpenApiOperationElement extends LitElement {
     static styles = css`
         :host {
             display: inline-block;
@@ -15,17 +16,14 @@ export class OpenApiOperation extends LitElement {
     @property({attribute: true})
     operationId = ""
 
-    @state()
-    operation: oas30.OperationObject | undefined
+    @property({attribute: false})
+    operation?: OpenApiOperation | null
 
     @property({attribute: true, type: Boolean})
     isDark = false
 
     connectedCallback(): void {
         super.connectedCallback()
-        const op = openApi.getOperation(this.operationId)
-        console.log(op)
-        this.operation = op
     }
     render() {
 

@@ -1,6 +1,9 @@
 import {LitElement, html, css, PropertyValues} from "lit"
 import {customElement, query, state} from "lit/decorators.js"
 import * as openApi from "./services/openApi.js"
+import { OpenApiOperation } from "./models/openApiTypes.js"
+
+import "./elements/index.js"
 
 @customElement('open-api-test')
 export class OpenApiTest extends LitElement {
@@ -10,6 +13,9 @@ export class OpenApiTest extends LitElement {
         }
         input {
             width: 25rem;
+        }
+        section {
+            background-color: #EEE;
         }
         textarea {
             width: 40rem;
@@ -28,6 +34,9 @@ export class OpenApiTest extends LitElement {
 
     @state()
     result = ""
+
+    @state()
+    selectedOp?: OpenApiOperation | null
 
     protected firstUpdated(_changedProperties: PropertyValues): void {
         this.getSpec()
@@ -49,19 +58,29 @@ export class OpenApiTest extends LitElement {
             this.result = "no op id"
             return
         }
-        const op = openApi.getNavigationTree()
-        const json = JSON.stringify(op, null, 2)
+        this.selectedOp = openApi.getOperation(opId)
+    }
+    getTree() {
+        const tree = openApi.getNavigationTree()
+        const json = JSON.stringify(tree, null, 2)
         if (this.textareaEl)
             this.textareaEl.value = json
     }
+
     render() {
         return html`
             <p>Test</p>
             <input id="url" value="https://apidev.digilean.tools/swagger/v1/swagger.json" />
             <button @click=${this.getSpec}>Get spec</button>
             <input id="op" value="Boards_List" />
-            <button @click=${this.getOp}>Get Nav</button>
+            <button @click=${this.getOp}>Get Op</button>
+            <button @click=${this.getTree}>Get Tree</button>
             <div>${this.result}</div>
+            
+            <section>
+                <open-api-operation .operation=${this.selectedOp}></open-api-operation>
+            </section>
+
             <textarea></textarea>
         `
     }
