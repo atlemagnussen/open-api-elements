@@ -1,1 +1,5 @@
 import "./openApiOperation.js"
+import "./openApiBadge.js"
+import "./openApiContent.js"
+import "./openApiOperationHeader.js"
+import "./openApiResponse.js"
