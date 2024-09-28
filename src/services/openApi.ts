@@ -23,6 +23,13 @@ export async function readSpec(url: string) {
     return spec
 }
 
+export function getBaseUrl() {
+    if (!spec || !spec.servers || spec.servers.length === 0)
+        return "missing base url"
+
+    return spec.servers[0].url
+}
+
 export function getNavigationTree() {
     if (!spec || !spec.paths)
         return []

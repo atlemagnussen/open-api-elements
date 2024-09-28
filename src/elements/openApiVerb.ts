@@ -14,17 +14,17 @@ export class OpenApiVerb extends LitElement {
             font-weight: 600;
         }
         .get {
-            --digilean-badge-color: var(--digilean-greeny);
+            --open-api-badge-color: var(--open-api-get);
         }
         .post {
-            --digilean-badge-color: var(--digilean-blue);
+            --open-api-badge-color: var(--open-api-post);
         }
         .put {
-            --digilean-badge-color: var(--digilean-yellow);
+            --open-api-badge-color: var(--open-api-put);
             color: var(--digilean-orange-dark);
         }
         .delete {
-            --digilean-badge-color: var(--digilean-red-cardinal);
+            --open-api-badge-color: var(--digilean-red-cardinal);
         }
     `
 

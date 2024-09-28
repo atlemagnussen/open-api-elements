@@ -38,6 +38,8 @@ export class OpenApiTest extends LitElement {
     @state()
     selectedOp?: OpenApiOperation | null
 
+    baseUrl = ""
+
     protected firstUpdated(_changedProperties: PropertyValues): void {
         this.getSpec()
     }
@@ -51,6 +53,7 @@ export class OpenApiTest extends LitElement {
         const spec = await openApi.readSpec(url)
         const info = JSON.stringify(spec?.info)
         this.result = `Spec ${spec?.openapi} loaded: ${info}`
+        this.baseUrl = openApi.getBaseUrl()
     }
     getOp() {
         const opId = this.inputOp?.value
@@ -78,7 +81,10 @@ export class OpenApiTest extends LitElement {
             <div>${this.result}</div>
             
             <section>
-                <open-api-operation .operation=${this.selectedOp}></open-api-operation>
+                <open-api-operation 
+                    .operation=${this.selectedOp}
+                    base-url="${this.baseUrl}">
+                </open-api-operation>
             </section>
 
             <textarea></textarea>

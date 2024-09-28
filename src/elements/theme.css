@@ -1,0 +1,7 @@
+:root {
+    --open-api-header-default: #AAA;
+    --open-api-badge-default: #CCC;
+    --open-api-green: #0F0;
+
+    --open-api-get: var(--open-api-green);
+}

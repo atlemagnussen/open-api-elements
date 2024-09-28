@@ -6,7 +6,8 @@ export class OpenApiBadge extends LitElement {
     static styles = css`
         :host {
             display: inline-block;
-            background-color: var(--digilean-badge-color);
+            --open-api-badge-color: var(--open-api-badge-default); 
+            background-color: var(--open-api-badge-color);
             border: solid 1px var(--badge-color);
             border-radius: 4px;
             padding: 0.3rem 0.7rem;
