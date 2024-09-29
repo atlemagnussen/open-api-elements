@@ -1,4 +1,6 @@
 :root {
+    --md-ref-typeface-brand: 'Open Sans';
+    --md-ref-typeface-plain: 'Open Sans';
 
     --open-api-primary-background: rgb(194, 210, 241);
     --open-api-primary-text: rgb(2, 5, 11);

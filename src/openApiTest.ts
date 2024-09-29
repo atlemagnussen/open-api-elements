@@ -4,6 +4,10 @@ import * as openApi from "./services/openApi.js"
 import { OpenApiOperation } from "./models/openApiTypes.js"
 // import "@material/web/"
 import "@material/web/checkbox/checkbox.js"
+import "@material/web/textfield/outlined-text-field.js"
+import "@material/web/textfield/filled-text-field.js"
+import "@material/web/button/outlined-button.js"
+import { initTheme } from "./services/theme.js"
 
 import "./elements/index.js"
 
@@ -48,10 +52,8 @@ export class OpenApiTest extends LitElement {
             color: var(--open-api-secondary-color);
             padding: 0.3rem;
         }
-        input {
-            width: 25rem;
-            background: var(--open-api-secondary-background);
-            color: var(--open-api-secondary-color);
+        #specurl, #op {
+            width: 20rem;
         }
         section {
             background-color: #EEE;
@@ -62,10 +64,10 @@ export class OpenApiTest extends LitElement {
         }
     `
 
-    @query("input#url")
+    @query("#specurl")
     inputEl: HTMLInputElement | undefined
 
-    @query("input#op")
+    @query("#op")
     inputOp: HTMLInputElement | undefined
 
     @query("textarea")
@@ -99,6 +101,7 @@ export class OpenApiTest extends LitElement {
     connectedCallback(): void {
         super.connectedCallback()
         this.isDark = true
+        initTheme()
     }
 
     protected firstUpdated(_changedProperties: PropertyValues): void {
@@ -139,7 +142,7 @@ export class OpenApiTest extends LitElement {
                 </div>
                 <div>
                 <label>
-                    Material 3
+                    Dark theme
                     <md-checkbox .checked=${this.isDark} 
                         @change=${this.isDarkChange}>
                     </md-checkbox>
@@ -150,11 +153,15 @@ export class OpenApiTest extends LitElement {
                 <span>menu</span>
             </nav>
             <main>
-                <input id="url" value="https://apidev.digilean.tools/swagger/v1/swagger.json" />
-                <button @click=${this.getSpec}>Get spec</button>
-                <input id="op" value="Boards_List" />
-                <button @click=${this.getOp}>Get Op</button>
-                <button @click=${this.getTree}>Get Tree</button>
+                <md-outlined-text-field id="specurl" label="Spec" value="https://apidev.digilean.tools/swagger/v1/swagger.json">
+                </md-outlined-text-field>
+                <md-outlined-button @click=${this.getSpec}>Get Spec</md-outlined-button>
+                <br>
+                <br>
+                <md-outlined-text-field id="op" label="OpId" value="Boards_List">
+                </md-outlined-text-field>
+                <md-outlined-button @click=${this.getOp}>Get Op</md-outlined-button>
+                <md-outlined-button @click=${this.getTree}>Get Tree</md-outlined-button>
                 <div>${this.result}</div>
                 
                 <section>

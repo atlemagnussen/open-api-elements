@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "@fluentui/web-components": "^3.0.0-beta.66",
+    "@material/material-color-utilities": "^0.3.0",
     "@material/web": "^2.2.0",
     "@readyapi/openapi-parser": "^0.3.3",
     "lit": "^3.2.0"
