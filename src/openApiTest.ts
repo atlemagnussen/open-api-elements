@@ -2,6 +2,8 @@ import {LitElement, html, css, PropertyValues} from "lit"
 import {customElement, query, state} from "lit/decorators.js"
 import * as openApi from "./services/openApi.js"
 import { OpenApiOperation } from "./models/openApiTypes.js"
+// import "@material/web/"
+import "@material/web/checkbox/checkbox.js"
 
 import "./elements/index.js"
 
@@ -34,7 +36,11 @@ export class OpenApiTest extends LitElement {
             flex-direction: row;
             justify-content: space-between;
             grid-area: header;
-            padding: 0.3rem;
+            padding: 0.8rem;
+            h2 {
+                margin-block-start: 0;
+                margin-block-end: 0;
+            }
         }
         main {
             grid-area: content;
@@ -132,10 +138,12 @@ export class OpenApiTest extends LitElement {
                     <h2>OpenAPI Elements Test</h2>
                 </div>
                 <div>
-                    <label for="dark-mode">Dark mode</label>
-                    <input id="dark-mode" type="checkbox" 
-                        .checked=${this.isDark} 
-                        @change=${this.isDarkChange} />
+                <label>
+                    Material 3
+                    <md-checkbox .checked=${this.isDark} 
+                        @change=${this.isDarkChange}>
+                    </md-checkbox>
+                </label>
                 </div>
             </header>
             <nav>
