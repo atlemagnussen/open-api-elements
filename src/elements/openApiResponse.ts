@@ -1,10 +1,11 @@
-import {LitElement, html, css} from "lit"
+import {html, css} from "lit"
 import {customElement, property, state} from "lit/decorators.js"
 import { oas30 } from "openapi3-ts"
 import { OpenApiOperation } from "@lib/models/openApiTypes.js"
+import { OpenApiBaseElement } from "./openApiBaseElement.js"
 
 @customElement('open-api-response')
-export class OpenApiResponse extends LitElement {
+export class OpenApiResponse extends OpenApiBaseElement {
     static styles = css`
         :host {
             display: block;
@@ -29,9 +30,15 @@ export class OpenApiResponse extends LitElement {
             ${responses.map(code => {
                 const response = this.operation?.responses![code] as oas30.ResponseObject
                 return html`
-                    <open-api-badge>${code}</open-api-badge>
-                    <open-api-badge>${response.description}</open-api-badge>
-                    <open-api-content .content=${response.content}></open-api-content>
+                    <open-api-badge>
+                        ${code}
+                    </open-api-badge>
+                    <open-api-badge>
+                        ${response.description}
+                    </open-api-badge>
+                    <open-api-content>
+                        .content=${response.content}>
+                    </open-api-content>
                 `
             })}
         `

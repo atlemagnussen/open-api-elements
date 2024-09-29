@@ -1,4 +1,4 @@
-import { argbFromHex, themeFromSourceColor, applyTheme } from "@material/material-color-utilities";
+import { argbFromHex, themeFromSourceColor, applyTheme } from "@material/material-color-utilities"
 
 // #f82506
 export function initTheme() {

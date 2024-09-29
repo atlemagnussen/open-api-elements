@@ -1,8 +1,9 @@
-import {LitElement, html, css} from "lit"
+import {html, css} from "lit"
 import {customElement, property} from "lit/decorators.js"
+import { OpenApiBaseElement } from "./openApiBaseElement.js"
 
 @customElement('open-api-verb')
-export class OpenApiVerb extends LitElement {
+export class OpenApiVerb extends OpenApiBaseElement {
     static styles = css`
         :host {
             display: inline-block;
@@ -14,7 +15,7 @@ export class OpenApiVerb extends LitElement {
             font-weight: 600;
         }
         .get {
-            --open-api-badge-color: var(--open-api-get);
+            --open-api-badge-color: var(--open-api-green);
         }
         .post {
             --open-api-badge-color: var(--open-api-post);
@@ -32,6 +33,7 @@ export class OpenApiVerb extends LitElement {
     verb = "GET"
     
     render() {
+        console.log(this.classList)
         return html`
             <open-api-badge class="${this.verb}">${this.verb}</open-api-badge>
         `

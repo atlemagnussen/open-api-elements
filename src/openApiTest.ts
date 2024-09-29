@@ -7,16 +7,16 @@ import "@material/web/checkbox/checkbox.js"
 import "@material/web/textfield/outlined-text-field.js"
 import "@material/web/textfield/filled-text-field.js"
 import "@material/web/button/outlined-button.js"
-import { initTheme } from "./services/theme.js"
 
 import "./elements/index.js"
+import { OpenApiBaseElement } from "./elements/openApiBaseElement.js"
 
 @customElement('open-api-test')
 export class OpenApiTest extends LitElement {
     static styles = css`
         :host {
-            background-color: var(--open-api-primary-background);
-            color: var(--open-api-primary-text);
+            background-color: var(--md-sys-color-background);
+            color: var(--md-sys-color-on-background);
             display: grid;
             grid-template-columns: 1fr 6fr;
             grid-template-areas:
@@ -32,7 +32,8 @@ export class OpenApiTest extends LitElement {
 
         nav {
             grid-area: nav;
-            background: purple;
+            background: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
             padding: 0.3rem;
         }
         header {
@@ -42,18 +43,19 @@ export class OpenApiTest extends LitElement {
             grid-area: header;
             padding: 0.8rem;
             h2 {
+                color: var(--md-sys-color-primary);
                 margin-block-start: 0;
                 margin-block-end: 0;
             }
         }
         main {
             grid-area: content;
-            background: var(--open-api-secondary-background);
-            color: var(--open-api-secondary-color);
+            background: var(--md-sys-color-surface-container-lowest);
+            color: var(--md-sys-color-secondary);
             padding: 0.3rem;
         }
         #specurl, #op {
-            width: 20rem;
+            width: 10rem;
         }
         section {
             background-color: #EEE;
@@ -79,19 +81,22 @@ export class OpenApiTest extends LitElement {
     @state()
     selectedOp?: OpenApiOperation | null
 
-    private _isDark = true
+    private _isDark = false
     @state()
     get isDark() {
         return this._isDark
     }
     set isDark(value) {
         this._isDark = value
-        if (this.isDark)
-            this.classList.add("dark-theme")
-        else
-            this.classList.remove("dark-theme")
+        if (this.isDark) {
+            this.classList.add("dark")
+            this.classList.remove("light")
+        }
+        else {
+            this.classList.remove("dark")
+            this.classList.add("light")
+        }
     }
-
     isDarkChange(e: Event) {
         const el = e.target as HTMLInputElement
         this.isDark = el.checked
@@ -101,7 +106,6 @@ export class OpenApiTest extends LitElement {
     connectedCallback(): void {
         super.connectedCallback()
         this.isDark = true
-        initTheme()
     }
 
     protected firstUpdated(_changedProperties: PropertyValues): void {
@@ -141,6 +145,11 @@ export class OpenApiTest extends LitElement {
                     <h2>OpenAPI Elements Test</h2>
                 </div>
                 <div>
+                    <md-outlined-text-field id="specurl" label="Spec" value="https://apidev.digilean.tools/swagger/v1/swagger.json">
+                    </md-outlined-text-field>
+                    <md-outlined-button @click=${this.getSpec}>Get Spec</md-outlined-button>
+                </div>
+                <div>
                 <label>
                     Dark theme
                     <md-checkbox .checked=${this.isDark} 
@@ -150,19 +159,14 @@ export class OpenApiTest extends LitElement {
                 </div>
             </header>
             <nav>
-                <span>menu</span>
-            </nav>
-            <main>
-                <md-outlined-text-field id="specurl" label="Spec" value="https://apidev.digilean.tools/swagger/v1/swagger.json">
-                </md-outlined-text-field>
-                <md-outlined-button @click=${this.getSpec}>Get Spec</md-outlined-button>
-                <br>
-                <br>
+                <h3>menu</h3>
                 <md-outlined-text-field id="op" label="OpId" value="Boards_List">
                 </md-outlined-text-field>
                 <md-outlined-button @click=${this.getOp}>Get Op</md-outlined-button>
-                <md-outlined-button @click=${this.getTree}>Get Tree</md-outlined-button>
-                <div>${this.result}</div>
+            </nav>
+            <main>
+                <!-- <md-outlined-button @click=${this.getTree}>Get Tree</md-outlined-button> -->
+                <!-- <div>${this.result}</div> -->
                 
                 <section>
                     <open-api-operation 

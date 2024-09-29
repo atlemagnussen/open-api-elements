@@ -1,4 +1,5 @@
-import "./theme.css"
+import "./open-api.css"
+import "./open-api-theme.js"
 import "./openApiOperation.js"
 import "./openApiBadge.js"
 import "./openApiContent.js"

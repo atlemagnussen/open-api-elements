@@ -1,9 +1,10 @@
-import {LitElement, html, css} from "lit"
+import {html, css} from "lit"
 import {customElement, property, state} from "lit/decorators.js"
 import { oas30 } from "openapi3-ts"
+import { OpenApiBaseElement } from "./openApiBaseElement.js"
 
 @customElement('open-api-content')
-export class OpenApiContent extends LitElement {
+export class OpenApiContent extends OpenApiBaseElement {
     static styles = css`
         :host {
             display: block;
@@ -30,7 +31,9 @@ export class OpenApiContent extends LitElement {
                         ${mediaType.encoding}
                     </p>
 
-                    <open-api-schema .schema=${mediaType.schema}></open-api-schema>
+                    <open-api-schema 
+                        .schema=${mediaType.schema}>
+                    </open-api-schema>
                 `
             })}
         `

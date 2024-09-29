@@ -1,17 +1,24 @@
-import {LitElement, html, css} from "lit"
+import {html, css} from "lit"
 import {customElement, property, state} from "lit/decorators.js"
 import { OpenApiOperation } from "../models/openApiTypes.js"
+import { OpenApiBaseElement } from "./openApiBaseElement.js"
 // import * as openApi from "../services/openApi.js"
 //import { oas30 } from "openapi3-ts"
 // import "rapidoc"
 
 @customElement('open-api-operation')
-export class OpenApiOperationElement extends LitElement {
+export class OpenApiOperationElement extends OpenApiBaseElement {
     static styles = css`
         :host {
             display: block;
-            background: var(--open-api-secondary-background);
-            color: var(--open-api-secondary-color);
+            background: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-secondary-container);
+        }
+        h2 {
+            color: var(--md-sys-color-secondary);
+        }
+        h4 {
+            color: var(--md-sys-color-tertiary);
         }
     `
 
@@ -21,15 +28,10 @@ export class OpenApiOperationElement extends LitElement {
     @property({attribute: false})
     operation?: OpenApiOperation | null
 
-    @property({attribute: true, type: Boolean})
-    isDark = false
-
     connectedCallback(): void {
         super.connectedCallback()
     }
     render() {
-
-        const code = "var test=124;\nconsole.log('hello')"
 
         if (!this.operation)
             return html`<h2>Missing spec</h2>`
@@ -37,7 +39,7 @@ export class OpenApiOperationElement extends LitElement {
             <h2>${this.operation.summary}</h2>
             <h4>${this.operation.description}</h4>
 
-            <open-api-operation-header 
+            <open-api-operation-header
                 .operation=${this.operation}
                 base-url="${this.baseUrl}">
             </open-api-operation-header>

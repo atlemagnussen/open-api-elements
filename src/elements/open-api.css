@@ -1,0 +1,14 @@
+:root {
+    --open-api-green: #0F0;
+    --md-ref-typeface-brand: 'open sans';
+    --md-ref-typeface-plain: 'open sans';
+}
+.dark {
+    --open-api-green: rgb(16, 158, 16);
+}
+
+/* @media (prefers-color-scheme: dark) {
+    .theme-a.adaptive {
+        
+    }
+} */

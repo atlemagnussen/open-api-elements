@@ -1,4 +1,4 @@
-import {LitElement, html, css, PropertyValues} from "lit"
+import { html, css} from "lit"
 import {customElement, property, query, state} from "lit/decorators.js"
 import { oas30 } from "openapi3-ts"
 
@@ -6,10 +6,11 @@ import { MdTabs } from "@material/web/tabs/tabs.js"
 import "@material/web/tabs/tabs.js"
 import "@material/web/tabs/primary-tab.js"
 import "@material/web/tabs/secondary-tab.js"
+import { OpenApiBaseElement } from "./openApiBaseElement.js"
 
 
 @customElement('open-api-schema')
-export class OpenApiSchema extends LitElement {
+export class OpenApiSchema extends OpenApiBaseElement {
     static styles = css`
         :host {
             display: block;

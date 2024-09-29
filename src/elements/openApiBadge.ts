@@ -1,8 +1,9 @@
-import {LitElement, html, css} from "lit"
+import { html, css} from "lit"
 import {customElement} from "lit/decorators.js"
+import { OpenApiBaseElement } from "./openApiBaseElement.js"
 
 @customElement('open-api-badge')
-export class OpenApiBadge extends LitElement {
+export class OpenApiBadge extends OpenApiBaseElement {
     static styles = css`
         :host {
             display: inline-block;
