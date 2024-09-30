@@ -1,10 +1,17 @@
 :root {
     --open-api-green: #0F0;
+    --open-api-blue: #00F;
+    --open-api-red: #F00;
+    --open-api-purple: #F0F;
+    --open-api-gf: #bbb;
     --md-ref-typeface-brand: 'open sans';
     --md-ref-typeface-plain: 'open sans';
 }
 .dark {
     --open-api-green: rgb(16, 158, 16);
+    --open-api-blue: rgb(28, 6, 188);
+    --open-api-red: rgb(149, 1, 1);
+    --open-api-purple: rgb(163, 11, 163);
 }
 
 /* @media (prefers-color-scheme: dark) {

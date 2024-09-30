@@ -36,7 +36,7 @@ export class OpenApiResponse extends OpenApiBaseElement {
                     <open-api-badge>
                         ${response.description}
                     </open-api-badge>
-                    <open-api-content>
+                    <open-api-content
                         .content=${response.content}>
                     </open-api-content>
                 `

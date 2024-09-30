@@ -33,7 +33,6 @@ export class OpenApiVerb extends OpenApiBaseElement {
     verb = "GET"
     
     render() {
-        console.log(this.classList)
         return html`
             <open-api-badge class="${this.verb}">${this.verb}</open-api-badge>
         `

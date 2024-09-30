@@ -1,7 +1,7 @@
 import {LitElement, html, css, PropertyValues} from "lit"
 import {customElement, query, state} from "lit/decorators.js"
 import * as openApi from "./services/openApi.js"
-import { OpenApiOperation } from "./models/openApiTypes.js"
+import { OpenApiGroup, OpenApiOperation } from "./models/openApiTypes.js"
 // import "@material/web/"
 import "@material/web/checkbox/checkbox.js"
 import "@material/web/textfield/outlined-text-field.js"
@@ -9,7 +9,6 @@ import "@material/web/textfield/filled-text-field.js"
 import "@material/web/button/outlined-button.js"
 
 import "./elements/index.js"
-import { OpenApiBaseElement } from "./elements/openApiBaseElement.js"
 
 @customElement('open-api-test')
 export class OpenApiTest extends LitElement {
@@ -122,20 +121,18 @@ export class OpenApiTest extends LitElement {
         const info = JSON.stringify(spec?.info)
         this.result = `Spec ${spec?.openapi} loaded: ${info}`
         this.baseUrl = openApi.getBaseUrl()
+        this.getTree()
     }
-    getOp() {
-        const opId = this.inputOp?.value
+    getOp(opId?: string) {
         if (!opId) {
             this.result = "no op id"
             return
         }
         this.selectedOp = openApi.getOperation(opId)
     }
+    tree: OpenApiGroup[] = []
     getTree() {
-        const tree = openApi.getNavigationTree()
-        const json = JSON.stringify(tree, null, 2)
-        if (this.textareaEl)
-            this.textareaEl.value = json
+        this.tree = openApi.getNavigationTree()
     }
 
     render() {
@@ -160,9 +157,14 @@ export class OpenApiTest extends LitElement {
             </header>
             <nav>
                 <h3>menu</h3>
-                <md-outlined-text-field id="op" label="OpId" value="Boards_List">
-                </md-outlined-text-field>
-                <md-outlined-button @click=${this.getOp}>Get Op</md-outlined-button>
+                ${this.tree.map(g => {
+                    return html`
+                        <p>${g.group}</p>
+                        ${g.operations.map(o => {
+                            return html`<md-outlined-button @click=${() => this.getOp(o.operationId)}>${o.operationId}</md-outlined-button>`
+                        })}
+                    `
+                })}
             </nav>
             <main>
                 <!-- <md-outlined-button @click=${this.getTree}>Get Tree</md-outlined-button> -->

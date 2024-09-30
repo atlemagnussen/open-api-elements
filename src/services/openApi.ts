@@ -84,4 +84,24 @@ export function getOperation(opId: string) {
         }
     }
     return null
-  }
+}
+
+export function getItemByRef(ref: string) {
+    if (!spec)
+        return null
+
+    const split = ref.split("/")
+    let objFound: any = spec
+    for(let i = 0; i < split.length; i++) {
+        const p = split[i]
+        if (p === "#")
+            continue
+
+        for (const path of Object.keys(objFound)) {
+            if (path === p) {
+                objFound = objFound[path]
+            }
+        }
+    }
+    return objFound
+}
